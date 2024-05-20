@@ -19,6 +19,8 @@ private String email;
 
 private String password;
 
+private Integer id;
+
 
 public String getName() {
 	return name;
@@ -31,4 +33,8 @@ public String getEmail() {
 public String getPassword() {
 	return password;
 }
+public Integer getId() {
+	return id;
+}
+
 }
