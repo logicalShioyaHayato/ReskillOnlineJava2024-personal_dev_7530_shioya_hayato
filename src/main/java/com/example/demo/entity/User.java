@@ -7,19 +7,28 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "users")
 
 public class User {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
-private Integer id;
 
 private String name;
 
-public Integer getId() {
-	return id;
-}
+private String email;
+
+private String password;
+
+
 public String getName() {
 	return name;
+}
+
+public String getEmail() {
+	return email;
+}
+
+public String getPassword() {
+	return password;
 }
 }

@@ -3,11 +3,13 @@ package com.example.demo.model;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
-public class User {
+@Component
+@SessionScope
 
-	@Component
-	@SessionScope
-	public class Account{
+
+public class Account {
+
+
 		private String name;
 		
 		public Account() {
@@ -25,5 +27,9 @@ public class User {
 			this.name = name;
 			
 		}
+
+		public void setId(Integer id) {
+			
+		}
 	}
-}
+
