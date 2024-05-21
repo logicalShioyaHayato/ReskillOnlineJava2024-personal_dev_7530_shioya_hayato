@@ -13,14 +13,17 @@ public class User {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 
+private Integer id;
+
 private String name;
 
 private String email;
 
 private String password;
 
-private Integer id;
-
+public Integer getId() {
+	return id;
+}
 
 public String getName() {
 	return name;
@@ -33,8 +36,15 @@ public String getEmail() {
 public String getPassword() {
 	return password;
 }
-public Integer getId() {
-	return id;
+
+public User() {
+	
 }
 
+public User(String name,String email,String password) {
+	this.name= name;
+	this.email= email;
+	this.password= password;
+
+}
 }

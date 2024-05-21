@@ -7,9 +7,7 @@
 <body>
 <h1>ログイン</h1>
 <form aciton="/login" method="post">
-	<ul th:if="${errorList}" class="error">
-		<li th:each="error:${errorList}" th:text="${error}"></li>
-	</ul>
+	
 	<table border="1">
 		<tr>
 		<th>メールアドレス</th>

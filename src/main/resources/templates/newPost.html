@@ -2,9 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>新規作成</title>
 </head>
 <body>
-
+<h1>新規ポスト作成</h1>
+<form aciton="/sns" method="post">
+	<p><input type="text" name="title" placeholder="title"></p>
+	<p><textarea name="content"  placeholder="投稿"></textarea></p>
+    <button>投稿する</button>
+</form>
 </body>
 </html>

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.User;
+import com.example.demo.model.Account;
 import com.example.demo.repository.UserRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -17,7 +18,8 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class UserController {
 
-	
+	@Autowired
+	Account account;
 	@Autowired
 	UserRepository userRepository;
 	
@@ -26,18 +28,23 @@ public class UserController {
 	
 	@GetMapping("/users/new")
 	public String newUser() {
-		session.invalidate();
+//		List<User> userList = userRepository.findAll();
+//		model.addAttribute("users",userList);
 		return "newUser";
 	}
 	
 	@PostMapping("/users/add")
 	public String addUser(
 		@RequestParam("name") String name,
+		@RequestParam("email") String email,
+		@RequestParam("password") String password,
 		Model model) {
+		//登録処理を行う
+		User user = new User(name,email,password);
+		userRepository.save(user);
 		return"redirect:/login";
 
 	}
-
 	
 	@GetMapping("/login")
 	public String userIndex() {
@@ -46,8 +53,8 @@ public class UserController {
 	}
 	
 
-@PostMapping("/login")
-public String login(
+   @PostMapping("/login")
+   public String login(
         @RequestParam("email") String email,
         @RequestParam("password") String password,
         Model model) {

@@ -6,16 +6,26 @@
 </head>
 <body>
     <header>
-        <h1>ホーム</h1>
+           <h2>ユーザー情報</h2>
+           こんにちは[[${@account.name}]]さん<br>
+           <a href="/login">ログアウト</a><br>
+           <a href="/sns/post">新規作成</a><br>
     </header>
 
     <main>
-        <div>
-            <h2>ユーザー情報</h2>
-            <p>ようこそ [[${account.name}]]さん</p>
-            <p>メールアドレス: [[${account.email}]]</p>
-            </div>
-    </main>
+		<table>
+		<tr th:each="post:${@postList.posts}">
+		<td th:text="${post.createdAt}"></td>
+		<td th:text="${post.title}"></td>
+		<td th:utext="${post.content}"></td>
+		<td><form th:action="@{/sns/{id}/delete(id=${post.id})}" method="post">
+			<button>削除</button>
+			</form>
+			
+	</tr>
+		</table>
+		
+</main>
 
     <footer>
     </footer>
