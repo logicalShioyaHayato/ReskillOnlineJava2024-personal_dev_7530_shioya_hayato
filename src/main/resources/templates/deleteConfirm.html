@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<input type="text" name="message" th:value="${post.message}"}>
+<p>上記の記事を削除します。よろしいですか？</p>
+<td><form th:action="@{/sns/{id}/delete(id=${post.id})}" method="post">
+<button>OK</button>
+</form>
+<form action="/sns" method="get">
+<button>キャンセル</button>
+</form>
+</body>
+</html>

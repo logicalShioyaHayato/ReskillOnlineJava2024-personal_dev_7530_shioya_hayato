@@ -14,14 +14,13 @@
 
     <main>
 		<table>
-		<tr th:each="post:${@postList.posts}">
-		<td th:text="${post.createdAt}"></td>
-		<td th:text="${post.title}"></td>
-		<td th:utext="${post.content}"></td>
-		<td><form th:action="@{/sns/{id}/delete(id=${post.id})}" method="post">
+		<tr th:each="post:${posts}">
+		<td th:text="${post.message}"></td>
+		<td th:if="${@account.id} == ${post.userId}"><form th:action="@{/sns/{id}/deleteConfirm(id=${post.id})}" method="post">
+			<input type="hidden" name="message" th:value="${post.message}">
 			<button>削除</button>
 			</form>
-			
+			</td>
 	</tr>
 		</table>
 		

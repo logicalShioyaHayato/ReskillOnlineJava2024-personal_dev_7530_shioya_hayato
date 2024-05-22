@@ -39,12 +39,16 @@ public class UserController {
 		@RequestParam("email") String email,
 		@RequestParam("password") String password,
 		Model model) {
+		if(email.length() ==0 || password.length() ==0 || name.length() ==0) {
+			model.addAttribute("error","すべての項目を入力してください");
+			return"newUser";
+		}
 		//登録処理を行う
 		User user = new User(name,email,password);
 		userRepository.save(user);
 		return"redirect:/login";
-
 	}
+	
 	
 	@GetMapping("/login")
 	public String userIndex() {
@@ -59,13 +63,13 @@ public class UserController {
         @RequestParam("password") String password,
         Model model) {
        if(email.length() ==0 || password.length() ==0) {
-		model.addAttribute("message","入力してください");
+		model.addAttribute("error","すべての項目を入力してください");
 	    return"login";
 	}
 	
 	List<User> userList = userRepository.findByEmailAndPassword(email,password);
 	if (userList == null || userList.size() == 0) {
-		model.addAttribute("message","メールアドレスとパスワードが一致しません");
+		model.addAttribute("error","メールアドレスとパスワードが一致しません");
 		return"login";
 	}
 	User user = userList.get(0);

@@ -7,8 +7,8 @@
 <body>
 <h1>新規ポスト作成</h1>
 <form aciton="/sns" method="post">
-	<p><input type="text" name="title" placeholder="title"></p>
-	<p><textarea name="content"  placeholder="投稿"></textarea></p>
+		<p th:text="${error}"></p>
+	<p><textarea name="message"  placeholder="投稿"></textarea></p>
     <button>投稿する</button>
 </form>
 </body>

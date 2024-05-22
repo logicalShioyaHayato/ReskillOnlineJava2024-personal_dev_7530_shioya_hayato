@@ -34,6 +34,10 @@ public Post(Integer id,Integer userid, String message ) {
 	this.id =id;
 	this.userId = userid;
 	this.message = message;
+}
 
+public Post(Integer userid, String message) {
+	this.userId = userid;
+	this.message = message;
 }
 }

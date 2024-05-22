@@ -16,6 +16,7 @@ public class Account {
     }
 
     // 既存のコンストラクタ
+    
     public Integer getId() {
         return id;
     }

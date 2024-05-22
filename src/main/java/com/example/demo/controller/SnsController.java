@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.model.Post;
-import com.example.demo.model.PostList;
+import com.example.demo.entity.Post;
+import com.example.demo.model.Account;
 import com.example.demo.repository.PostRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -20,35 +20,65 @@ import jakarta.servlet.http.HttpSession;
 public class SnsController {
 	
 	@Autowired
-	PostRepository postRepository;
+	Account account;
 	@Autowired
-	PostList postList;
+	PostRepository postRepository;
+//	@Autowired
+//	PostList postList;
 	@Autowired
 	HttpSession session;
 	
 	@GetMapping("/sns")
-	public String index() {
+	public String index(Model model) {
+		List<Post> postList = postRepository.findAll();
+		model.addAttribute("posts",postList);
 		return "sns";
 	}
-	
+	//登録画面を表示する処理
 	@GetMapping("/sns/post")
 	public String newPost() {
-		session.invalidate();
 		return "newPost";
 	}
 	
 @PostMapping("/sns/post")
 public String posts(
-		@RequestParam("title")String title,
-		@RequestParam("content")String content) {
-	List<Post>allPosts = postList.getPosts();
-		allPosts.add(new Post(title,content));
-    return "redirect:/sns"; }
+		@RequestParam("message")String message,Model model) {
+	//入力確認
+	if(message.length() ==0) {
+		model.addAttribute("error","投稿内容を入力してください");
+	    return"newPost";
+	}
+	    
+	if(message.length() >140) {
+			model.addAttribute("error","ポスト制限は140字以内です");
+		    return"newPost";
+	}
+	//acciunt.javaからゆーざーidとなるidを取得
+	Integer userId = account.getId();
+	
+	//ユーザーidとmessageをエンティティにセット
+	Post post = new Post(userId,message);
+	
+	//エンティティを登録
+	postRepository.save(post);
+    return "redirect:/sns";
+    }
+
 
     @PostMapping("/sns/{id}/delete")
     public String deletePost(@PathVariable("id") Integer id ,Model model) {
         postRepository.deleteById(id);
         return "redirect:/sns"; 
     }
+    //削除確認画面を登録する処理
+	@PostMapping("/sns/{id}/deleteConfirm")
+	public String deleteConfirm(
+			@PathVariable("id")Integer postId,
+            @RequestParam("message")String message,
+			Model model) {
+		Post post = new Post(postId,account.getId(),message);
+		model.addAttribute("post",post);
+		return "deleteConfirm";
+	}
 }
 
